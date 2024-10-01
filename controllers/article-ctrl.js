@@ -4,7 +4,7 @@ const fs = require('fs');
 // Create a new article
 exports.createArticle = async (req, res, next) => {
   try {
-    const imageUrl = req.file ? `http://localhost:8080/images/${req.file.filename}` : null;
+    const imageUrl = req.file ? `https://api-angular-vqi4.onrender.com/${req.file.filename}` : null;
 
     const article = new Article({
       title: req.body.title,
