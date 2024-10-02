@@ -80,3 +80,29 @@ exports.modifyArticle = async (req, res, next) => {
     });
   }
 };
+
+exports.deleteArticle = async (req, res, next) => {
+  try {
+    const article = await Article.findOne({ _id: req.params.id });
+
+    if (!article) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+
+    const filename = article.imageUrl.split('/images/')[1];
+
+    fs.unlink(`images/${filename}`, async (unlinkError) => {
+      if (unlinkError) {
+        return res.status(500).json({ message: 'Failed to delete image', error: unlinkError.message });
+      }
+
+      await Article.deleteOne({ _id: req.params.id });
+      res.status(200).json({ message: 'Article deleted successfully!' });
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to delete article',
+      error: error.message
+    });
+  }
+};

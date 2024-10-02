@@ -24,14 +24,7 @@ exports.register = async (req, res) => {
     user = new User({ username, password:hash });
     await user.save();
 
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
-
-    user.refreshToken = refreshToken;
-    await user.save();
-
-    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true });
-    res.json({ accessToken });
+    res.status(201).json({ accessToken });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
