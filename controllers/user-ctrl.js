@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
     user = new User({ username, password:hash });
     await user.save();
 
-    res.status(201).json({ accessToken });
+    res.status(201).json({ message:"inscription réussi" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
