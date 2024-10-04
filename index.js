@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose');
 const articlesRoutes = require('./routes/article-route');
 const usersRoutes = require('./routes/user-route');
+const genresRoutes = require('./routes/genre-route');
+const citationsRoutes = require('./routes/citation-route');
 const path = require('path');
 
 const app = express()
@@ -27,8 +29,10 @@ app.use((req, res, next) => {
   }
   next();
 });
-app.use('/api/article', articlesRoutes);
-app.use('/api/user', usersRoutes);
+app.use('/article', articlesRoutes);
+app.use('/user', usersRoutes);
+app.use('/genre', genresRoutes);
+app.use('/citation', citationsRoutes);
 
 
 
